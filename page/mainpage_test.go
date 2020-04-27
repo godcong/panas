@@ -3,5 +3,5 @@ package page
 import "testing"
 
 func TestGetMainPage(t *testing.T) {
-	GetMainPage()
+	t.Log(GetMainPage().Html())
 }

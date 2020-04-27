@@ -35,3 +35,7 @@ func GetPage(url string) *goquery.Document {
 	}
 	return reader
 }
+
+func List() []string {
+	return pageList
+}

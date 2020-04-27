@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         go-version: [1.13.x]
-        platform: [windows-latest]
+        platform: [ubuntu-latest]
         arch: [amd64]
     runs-on: ${{ matrix.platform }}
     steps:
@@ -36,6 +36,9 @@ jobs:
       run: |
           ${GOROOT}/bin/go mod tidy
           
-          echo "running"
-          ${GOROOT}/bin/go run main.go
+          echo "build"
+          ${GOROOT}/bin/go build -o panas main.go
+          
+          echo "test"
+          ./panas
           

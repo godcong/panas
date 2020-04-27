@@ -1,0 +1,41 @@
+name: Go
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+env:
+  UPLOAD_BIN_FILE: true
+
+jobs:
+
+  build:
+    name: Build
+    strategy:
+      matrix:
+        go-version: [1.13.x]
+        platform: [windows-latest]
+        arch: [amd64]
+    runs-on: ${{ matrix.platform }}
+    steps:
+
+    - name: Set up Go 1.13
+      uses: actions/setup-go@v1
+      with:
+        GOARCH: ${{ matrix.arch }}
+        go-version: ${{ matrix.go-version }}
+      id: go
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+
+    - name: Build ${{ matrix.platform }} ${{ matrix.arch }}
+      if: matrix.platform == 'ubuntu-latest' || matrix.platform == 'macos-latest'
+      id: test_run
+      run: |
+          ${GOROOT}/bin/go mod tidy
+          
+          echo "running"
+          ${GOROOT}/bin/go run main.go
+          

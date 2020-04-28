@@ -10,6 +10,7 @@ import (
 
 func main() {
 	times := 100
+	max := true
 	limit := 1000
 	if len(os.Args) > 0 {
 		parseInt, err := strconv.ParseInt(os.Args[0], 10, 32)
@@ -25,9 +26,11 @@ func main() {
 			times = int(parseInt)
 		}
 	}
-
+	if times > 0 {
+		max = false
+	}
 	//loop for handle new message
-	for ; times > 0; times-- {
+	for ; times > 0 || max; times-- {
 		wg := sync.WaitGroup{}
 		for ; limit > 0; limit-- {
 			wg.Add(1)

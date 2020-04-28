@@ -18,9 +18,6 @@ var pageList = []string{
 	"https://www.nas2x.com/forums/windows-server/",
 	"https://www.nas2x.com/forums/virtualization/",
 	"https://www.nas2x.com/forums/share/",
-	"https://www.nas2x.com/forums/11/",
-	"https://www.nas2x.com/forums/15/",
-	"https://www.nas2x.com/forums/2/",
 }
 
 func GetPage(url string) *goquery.Document {

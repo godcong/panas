@@ -2,6 +2,7 @@ package page
 
 import (
 	"bytes"
+	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"io/ioutil"
 	"net/http"
@@ -21,6 +22,12 @@ var pageList = []string{
 }
 
 func GetPage(url string) *goquery.Document {
+	defer func() {
+		if e := recover(); e != nil {
+			fmt.Println(e)
+			return
+		}
+	}()
 	get, err := http.Get(url)
 	if err != nil {
 		panic(err)

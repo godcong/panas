@@ -6,6 +6,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 var pageList = []string{
@@ -29,11 +30,19 @@ func GetPage(url string) *goquery.Document {
 			return
 		}
 	}()
-	get, err := http.Get(url)
+	cli := http.Client{
+		Timeout: 3 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		panic(err)
 	}
-	all, err := ioutil.ReadAll(get.Body)
+	resp, err := cli.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	all, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		panic(err)
 	}

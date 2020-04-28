@@ -9,18 +9,18 @@ import (
 )
 
 func main() {
-	times := 1000
+	times := 100
 	max := true
 	limit := 1000
-	if len(os.Args) > 0 {
-		parseInt, err := strconv.ParseInt(os.Args[0], 10, 32)
+	if len(os.Args) > 1 {
+		parseInt, err := strconv.ParseInt(os.Args[1], 10, 32)
 		if err == nil {
 			//return
 			limit = int(parseInt)
 		}
 	}
-	if len(os.Args) > 1 {
-		parseInt, err := strconv.ParseInt(os.Args[1], 10, 32)
+	if len(os.Args) > 2 {
+		parseInt, err := strconv.ParseInt(os.Args[2], 10, 32)
 		if err == nil {
 			//return
 			times = int(parseInt)

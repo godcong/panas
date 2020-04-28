@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	times := 100
+	times := 1000
 	max := true
 	limit := 1000
 	if len(os.Args) > 0 {

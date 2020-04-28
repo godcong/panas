@@ -27,6 +27,7 @@ func main() {
 		}
 	}
 	if times > 0 {
+		fmt.Println("loop run: ", max, "times", times)
 		max = false
 	}
 	//loop for handle new message

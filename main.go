@@ -30,9 +30,10 @@ func main() {
 		fmt.Println("loop run: ", max, "times", times)
 		max = false
 	}
+
 	//loop for handle new message
 	for ; times > 0 || max; times-- {
-		wg := sync.WaitGroup{}
+		wg := &sync.WaitGroup{}
 		for ; limit > 0; limit-- {
 			wg.Add(1)
 			go func() {
@@ -43,7 +44,7 @@ func main() {
 				}
 			}()
 		}
-
 		wg.Wait()
 	}
+
 }

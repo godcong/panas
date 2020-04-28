@@ -11,7 +11,7 @@ import (
 func main() {
 	times := 100
 	max := true
-	limit := 1000
+	limit := 5000
 	if len(os.Args) > 1 {
 		parseInt, err := strconv.ParseInt(os.Args[1], 10, 32)
 		if err == nil {

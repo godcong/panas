@@ -44,7 +44,7 @@ func main() {
 				if stop.Load() {
 					return
 				}
-				time.Sleep(time.Duration(random.Int63n(10)) * time.Second)
+				time.Sleep(time.Duration(random.Int63n(1000)) * time.Millisecond)
 			}
 		}()
 	}

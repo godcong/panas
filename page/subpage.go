@@ -28,7 +28,7 @@ func GetPage(url string) *goquery.Document {
 		}
 	}()
 	cli := http.Client{
-		Timeout: 3 * time.Second,
+		Timeout: 30 * time.Second,
 	}
 
 	req, err := http.NewRequest("GET", url, nil)

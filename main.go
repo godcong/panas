@@ -3,15 +3,17 @@ package main
 import (
 	"fmt"
 	"github.com/godcong/panas/page"
+	"go.uber.org/atomic"
+	"math/rand"
 	"os"
 	"strconv"
-	"sync"
+	"time"
 )
 
 func main() {
-	times := 100
+	times := int64(3)
 	max := true
-	limit := 5000
+	limit := 1000
 	if len(os.Args) > 1 {
 		parseInt, err := strconv.ParseInt(os.Args[1], 10, 32)
 		if err == nil {
@@ -23,28 +25,36 @@ func main() {
 		parseInt, err := strconv.ParseInt(os.Args[2], 10, 32)
 		if err == nil {
 			//return
-			times = int(parseInt)
+			times = parseInt
 		}
 	}
 	if times > 0 {
 		fmt.Println("loop run: ", max, "times", times)
 		max = false
 	}
-
+	tm := time.Now()
+	random := rand.New(rand.NewSource(tm.UnixNano()))
+	stop := atomic.NewBool(false)
 	//loop for handle new message
-	for ; times > 0 || max; times-- {
-		wg := &sync.WaitGroup{}
-		for ; limit > 0; limit-- {
-			wg.Add(1)
-			go func() {
-				defer wg.Done()
-				for _, p := range page.List() {
-					fmt.Println("pa:", p)
-					page.GetPage(p)
+	for ; limit > 0; limit-- {
+		go func() {
+			for _, p := range page.List() {
+				fmt.Println("pa:", p)
+				page.GetPage(p)
+				if stop.Load() {
+					return
 				}
-			}()
-		}
-		wg.Wait()
+				time.Sleep(time.Duration(random.Int63n(10000000)))
+			}
+		}()
 	}
+
+	for r, _ := TimeCheck(tm, times); r > 0; r, _ = TimeCheck(tm, 30) {
+		time.Sleep(time.Second)
+	}
+
+	stop.Store(true)
+	//waiting for all done
+	time.Sleep(3 * time.Second)
 
 }

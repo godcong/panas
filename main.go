@@ -46,7 +46,7 @@ func main() {
 		}()
 	}
 
-	for r, _ := TimeCheck(tm, times); r > 0; r, _ = TimeCheck(tm, 30) {
+	for r, _ := TimeCheck(tm, times); r > 0; r, _ = TimeCheck(tm, times) {
 		fmt.Println("time remain", r)
 		time.Sleep(time.Second)
 	}
@@ -54,5 +54,6 @@ func main() {
 	stop.Store(true)
 	//waiting for all done
 	time.Sleep(3 * time.Second)
+	fmt.Println("done")
 
 }

@@ -12,7 +12,6 @@ import (
 
 func main() {
 	times := int64(3)
-	max := true
 	limit := 1000
 	if len(os.Args) > 1 {
 		parseInt, err := strconv.ParseInt(os.Args[1], 10, 32)

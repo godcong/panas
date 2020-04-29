@@ -28,10 +28,7 @@ func main() {
 			times = parseInt
 		}
 	}
-	if times > 0 {
-		fmt.Println("loop run: ", max, "times", times)
-		max = false
-	}
+
 	tm := time.Now()
 	random := rand.New(rand.NewSource(tm.UnixNano()))
 	stop := atomic.NewBool(false)
@@ -51,6 +48,7 @@ func main() {
 	}
 
 	for r, _ := TimeCheck(tm, times); r > 0; r, _ = TimeCheck(tm, 30) {
+		fmt.Println("time remain", r)
 		time.Sleep(time.Second)
 	}
 

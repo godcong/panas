@@ -38,13 +38,15 @@ func main() {
 	//loop for handle new message
 	for ; limit > 0; limit-- {
 		go func() {
-			for _, p := range page.List() {
-				fmt.Println("pa:", p)
-				page.GetPage(p)
-				if stop.Load() {
-					return
+			for {
+				for _, p := range page.List() {
+					fmt.Println("pa:", p)
+					page.GetPage(p)
+					if stop.Load() {
+						return
+					}
+					time.Sleep(time.Duration(random.Int63n(1000)) * time.Millisecond)
 				}
-				time.Sleep(time.Duration(random.Int63n(1000)) * time.Millisecond)
 			}
 		}()
 	}
